@@ -1,0 +1,71 @@
+*{
+    border-collapse: collapse;
+}
+
+body {
+    background: linear-gradient(120deg, #00ffff, #ff49b9);
+}
+
+.main{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    background: rgba(255, 255, 255, 0.2);
+    max-width: 1000px;
+    height: 90%;
+    margin: auto;
+}
+
+.right {
+    height: 600px;
+    display: grid;
+    grid-template-rows: 90% 10%;
+    background: rgba(145, 234, 234, 0.5);
+    position: relative;
+    height: 100%;
+}
+
+.input-box {
+    position: relative;
+    bottom: 0;
+    background-color: pink;
+    margin: auto;
+    padding: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.message-box {
+    background-color: pink;
+    padding: 5%;
+    overflow: scroll;
+    height: 600px;
+}
+
+.message-box::-webkit-scrollbar {
+    display: none;
+}
+
+.msg-input {
+    height: 50px;
+    width: 400px;
+}
+
+.send-btn {
+    height: 50px;
+    border: none;
+    outline: none;
+}
+
+.post-body {
+    width: 80%;
+    background-color: white;
+    padding: 10px;
+    margin: 10px;
+}
+
+.time {
+    position: relative;
+    float: right;
+}
