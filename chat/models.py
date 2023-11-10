@@ -28,7 +28,7 @@ class Post(models.Model):
             'id': self.id,
             'content': self.content,
             'date': self.date, 
-            'group': self.group,
+            'group': self.group.name,
             'user': self.user.nickname
         }
 

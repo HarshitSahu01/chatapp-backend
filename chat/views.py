@@ -15,15 +15,13 @@ def chat(request):
 @csrf_exempt
 def apis(request, type):
     if request.method == 'POST':
-        print(request.POST) 
-        try:
-            
-            key = request.POST['key']
-            user = User.objects.filter(key=key)
-            if len(user) < 1:
-                return JsonResponse({'msg':'invalid key'})
-        except:
-            pass
+        if 'key' not in request.POST:
+            return JsonResponse({'msg':'Please provide your api key'})
+        key = request.POST['key']
+        user = User.objects.filter(key=key)
+        if len(user) < 1:
+            return JsonResponse({'msg':'invalid key'})
+        user = user[0]
         if type == 'read':
             page_num, group = 1, 'main'
             if 'page' in request.POST:
@@ -51,6 +49,7 @@ def apis(request, type):
             group = 'main'
             if 'group' in request.POST:
                 group = request.POST['group']
+            group = Group.objects.filter(name=group)[0]
             post = Post(content = content, group = group, user = user)
             post.save()
             return JsonResponse({'msg':'Post Created successfully'})
