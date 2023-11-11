@@ -27,7 +27,7 @@ class Post(models.Model):
         return {
             'id': self.id,
             'content': self.content,
-            'date': self.date, 
+            'date': f'{self.date.hour()}:{self.date.minute()}', 
             'group': self.group.name,
             'user': self.user.nickname
         }

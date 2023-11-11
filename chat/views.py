@@ -52,7 +52,7 @@ def apis(request, type):
             if 'content' not in request.POST:
                 return JsonResponse({'msg':'Please send content'})
             content = request.POST['content']
-            if not content.trim():
+            if not content.strip():
                 return JsonResponse({'msg':'Please send content'})
             group = 'main'
             if 'group' in request.POST:

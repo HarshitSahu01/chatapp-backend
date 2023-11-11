@@ -29,6 +29,7 @@ body {
 .input-box {
     position: relative;
     bottom: 110%;
+    transform: translate(0, 60px);
     background-color: pink;
     margin: auto;
     display: flex;
@@ -40,7 +41,7 @@ body {
     background-color: pink;
     padding: 5%;
     overflow: scroll;
-    height: 600px;
+    height: 500px;
 }
 
 .me {
@@ -92,4 +93,8 @@ body {
 .time {
     position: relative;
     float: right;
+}
+
+.title {
+    padding: 10px;
 }
