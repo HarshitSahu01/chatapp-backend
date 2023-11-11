@@ -2,10 +2,11 @@ refresh = () => {
     window.location.reload(true);
 };
 
-base_url = 'http://localhost:8000/';
+base_url = 'http://127.0.0.1:8001/';
+// base_url = 'https://harshitsahu.pythonanywhere.com/';
 api_key = 'aDCOInSATXaX69eLq3PJQY8_thaOXM2n'
 
-console.log('Script connected')
+console.log('Fetch Script connected');
 
 function fetch_groups(api_key, func) {
     $.post(`${base_url}apis/groups`,
@@ -35,13 +36,13 @@ function make_post(content, api_key, func){
         key: api_key, 
         content: content
     },
-    (data, status) => {
+    (data) => {
         console.log("fetch_posts(): data recieved");    
         func(data);
     });
 }
 
 function func(data) {
-    alert(data.msg);
+    console.log(data);
     a = data;
 }

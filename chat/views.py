@@ -16,12 +16,11 @@ def chat(request):
 def apis(request, type):
     if request.method == 'POST':
         if 'key' not in request.POST:
-            return JsonResponse({'msg':'Please provide your api key'})
+            return JsonResponse({'msg':'Please provide a key'})
         key = request.POST['key']
-        user = User.objects.filter(key=key)
-        if len(user) < 1:
-            return JsonResponse({'msg':'invalid key'})
-        user = user[0]
+        if key not in [i['key'] for i in User.objects.values('key')]:
+            return JsonResponse({'msg':'Invalid Key'})
+        user = User.objects.get(key=key)
         if type == 'read':
             page_num, group = 1, 'main'
             if 'page' in request.POST:
@@ -49,7 +48,9 @@ def apis(request, type):
             group = 'main'
             if 'group' in request.POST:
                 group = request.POST['group']
-            group = Group.objects.filter(name=group)[0]
+                if group not in [i['name'] for i in Group.objects.values('name')]:
+                    return JsonResponse({'msg':'Invalid Group'})
+            group = Group.objects.get(name=group)
             post = Post(content = content, group = group, user = user)
             post.save()
             return JsonResponse({'msg':'Post Created successfully'})
@@ -57,8 +58,5 @@ def apis(request, type):
         elif type == 'groups':
             group_list = [i['name'] for i in Group.objects.values('name')]
             data = {'msg': 'success', 'data':group_list}
-            print(data)
             return JsonResponse(data)
         return JsonResponse({'msg':'Invalid Request Type'})
-    
-    return JsonResponse({'msg':'Please use POST Method'})
