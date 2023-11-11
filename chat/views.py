@@ -34,17 +34,26 @@ def apis(request, type):
             posts = Post.objects.filter()
             posts = posts.order_by("-date").all()
             
-            posts_obj = Paginator(posts, 50)
-            posts = posts_obj.page(page_num)
+            size = 20
+            posts_obj = Paginator(posts, size)
+            posts = posts_obj.get_page(page_num)
             postData = []
             for post in posts:
                 postData.append(post.dispatch())
-            return JsonResponse({'data':postData, 'page':page_num, 'count':20, 'msg':'success'}, safe=False)
+            return JsonResponse({
+                'data':postData,
+                'page':page_num,
+                'total_pages':posts_obj.num_pages,
+                'count':size, 
+                'msg':'success'
+            }, safe=False)
         
         elif type == 'create':
             if 'content' not in request.POST:
                 return JsonResponse({'msg':'Please send content'})
             content = request.POST['content']
+            if not content.trim():
+                return JsonResponse({'msg':'Please send content'})
             group = 'main'
             if 'group' in request.POST:
                 group = request.POST['group']
